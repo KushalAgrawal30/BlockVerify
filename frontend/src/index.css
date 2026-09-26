@@ -1,0 +1,41 @@
+/* Palette lifted from the project deck: deep teal ground, mint accent. */
+:root {
+  --ink: #0a2e2a; --paper: #f4f7f6; --line: #dde5e3;
+  --teal: #0e7c74; --mint: #17b890; --bad: #c0392b; --muted: #5d716e;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--ink); background: var(--paper);
+}
+body { margin: 0; }
+.app { max-width: 960px; margin: 0 auto; padding: 1.5rem; }
+
+header { display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap;
+  border-bottom: 3px solid var(--teal); padding-bottom: .75rem; }
+header h1 { margin: 0; color: var(--teal); letter-spacing: -.02em; }
+.who { margin-left: auto; font-size: .9rem; display: flex; align-items: center; gap: .6rem; }
+.portal { color: var(--teal); margin: 1.5rem 0 .5rem; }
+
+.card { background: #fff; border: 1px solid var(--line); border-radius: 10px;
+  padding: 1rem 1.25rem; margin: 1rem 0; }
+.card h2 { margin-top: .25rem; font-size: 1.1rem; }
+.login { max-width: 26rem; display: grid; gap: .5rem; }
+
+.row { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; }
+input, select { padding: .5rem .6rem; border: 1px solid var(--line); border-radius: 6px; font: inherit; }
+button { padding: .5rem .9rem; border: 0; border-radius: 6px; background: var(--teal);
+  color: #fff; font: inherit; cursor: pointer; }
+button:hover { background: var(--mint); }
+button:disabled { background: var(--muted); cursor: not-allowed; }
+
+table { border-collapse: collapse; width: 100%; margin-top: .5rem; font-size: .92rem; }
+th, td { text-align: left; padding: .4rem .5rem; border-bottom: 1px solid var(--line); }
+.stock th { color: var(--muted); font-weight: 600; }
+
+.result { margin-top: .75rem; }
+.ok { color: var(--mint); font-weight: 700; }
+.bad { color: var(--bad); font-weight: 700; }
+.muted { color: var(--muted); font-size: .85rem; }
+.qr { width: 160px; image-rendering: pixelated; border: 1px solid var(--line); }
+.timeline { font-size: .9rem; line-height: 1.7; padding-left: 1.2rem; }
+.scanner { margin-top: .75rem; display: grid; gap: .5rem; justify-items: start; }
+#qr-reader { width: 320px; }
+code { background: var(--paper); padding: 0 .25rem; border-radius: 3px; }
