@@ -65,6 +65,25 @@ describe("BlockVerify", function () {
     expect(hops).to.equal(2n);
   });
 
+  it("verifyProduct returns OWNERSHIP MISMATCH when the record is tampered with", async function () {
+    await register();
+    await c.connect(mfg).transferOwnership(1, dist.address);
+
+    // Force currentOwner to an address the transfer log does not lead to.
+    // Only a development node allows this; it is how the mismatch branch —
+    // unreachable through the contract's own functions — gets exercised.
+    const slot = ethers.toBeHex(
+      BigInt(ethers.keccak256(ethers.AbiCoder.defaultAbiCoder().encode(["uint256", "uint256"], [1, 1]))) + 5n, 32);
+    await ethers.provider.send("hardhat_setStorageAt", [
+      await c.getAddress(), slot, ethers.zeroPadValue(retail.address, 32),
+    ]);
+
+    const [status, owner] = await c.verifyProduct(1);
+    expect(status).to.equal(MISMATCH);
+    expect(owner).to.equal(retail.address);          // the forged owner
+    expect((await c.getTransferLog(1))[0].to).to.equal(dist.address); // the real one
+  });
+
   it("reports gas cost per transaction type", async function () {
     const r = await (await register()).wait();
     const t = await (await c.connect(mfg).transferOwnership(1, dist.address)).wait();

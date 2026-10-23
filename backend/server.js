@@ -7,7 +7,7 @@ import QRCode from "qrcode";
 import { User, Session } from "./models.js";
 import {
   readContract, asAccount, accounts, accountIndexFor,
-  contractAddress, ROLE_ACCOUNTS, STATUS,
+  contractAddress, ROLE_ACCOUNTS, STATUS, provider,
 } from "./chain.js";
 
 const JWT_SECRET = process.env.JWT_SECRET || "blockverify-dev-secret";
@@ -170,7 +170,20 @@ const reason = (e) =>
   (e.shortMessage || e.reason || e.message).replace(/^execution reverted:?\s*/, "").replace(/^"|"$/g, "");
 
 const PORT = process.env.PORT || 4000;
-mongoose
-  .connect(process.env.MONGO_URL || "mongodb://127.0.0.1:27017/blockverify")
+
+// Restarting the local node wipes the chain, which leaves deployment.json
+// pointing at an address that no longer holds any code. Without this check the
+// server starts happily and every request fails with an opaque decode error.
+async function assertContractDeployed() {
+  if ((await provider.getCode(contractAddress)) === "0x")
+    throw new Error(
+      `no contract found at ${contractAddress}.\n` +
+      `  The chain was restarted after the last deploy. Run:\n` +
+      `    npm run deploy && npm run seed`
+    );
+}
+
+assertContractDeployed()
+  .then(() => mongoose.connect(process.env.MONGO_URL || "mongodb://127.0.0.1:27017/blockverify"))
   .then(() => app.listen(PORT, () => console.log(`BlockVerify API on :${PORT}, contract ${contractAddress}`)))
-  .catch((e) => { console.error("mongo connect failed:", e.message); process.exit(1); });
+  .catch((e) => { console.error("startup failed:", e.message); process.exit(1); });

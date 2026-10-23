@@ -10,7 +10,10 @@
     "seed": "node backend/seed.js",
     "api": "node backend/server.js",
     "web": "npm --prefix frontend run dev",
-    "smoke": "node backend/smoke.js"
+    "smoke": "node backend/smoke.js",
+    "baseline": "node backend/baseline.js",
+    "bench": "node backend/bench.js",
+    "tamper": "node backend/tamper.js"
   },
   "keywords": [],
   "author": "",

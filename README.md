@@ -35,9 +35,29 @@ Demo logins (password `demo1234`): `manufacturer@demo.io`, `distributor@demo.io`
 ## Checks
 
 ```bash
-npm test      # 8 Hardhat/Chai contract tests, prints gas per tx type
+npm test      # 9 Hardhat/Chai contract tests, prints gas per tx type
 npm run smoke # end-to-end API test: auth, roles, register, transfer, verify
 ```
+
+## Evaluation
+
+A centralized MongoDB-only implementation of the same workflow lives in
+`backend/baseline.js`, so the project's central claim can be measured rather
+than asserted. With the chain, both APIs and mongod running:
+
+```bash
+npm run baseline     # terminal 5: the MongoDB-only system on :4001
+npm run bench        # latency, gas and throughput over N trials (default 30)
+npm run tamper       # runs four attacks against both systems
+```
+
+`npm run bench` writes `benchmark-results.json` with median/mean/p95 for every
+operation on both systems. `npm run tamper` writes `tamper-results.json`.
+
+Headline result: both systems reject the application-level attacks, but an
+operator with direct database access rewrites ownership and erases custody
+history in the centralized system without verification noticing — 4/4 attacks
+detected on-chain against 2/4 centralized.
 
 ## What's implemented
 
@@ -49,11 +69,7 @@ npm run smoke # end-to-end API test: auth, roles, register, transfer, verify
 | 04 Contract-governed ownership transfer | done — `contracts/OwnershipTransfer.sol`, owner-only |
 | 05 Transparent auditable history | done — full transfer log + timeline UI |
 | 06 Role-based interfaces | done — 4 roles, capability-gated |
-| 07 Blockchain vs. centralized DB | partial — architecture in place, written comparison pending |
-
-Not yet built: the centralized-MongoDB baseline for side-by-side comparison, and
-the written benchmark report. Gas numbers already print from `npm test`; scan
-latency is shown live on every verification result.
+| 07 Blockchain vs. centralized DB | done — baseline built, benchmarks and tamper tests measured |
 
 ## Layout
 
@@ -62,6 +78,7 @@ contracts/         ProductRegistry.sol, OwnershipTransfer.sol
 scripts/deploy.js  writes deployment.json (address + ABI) for the backend
 test/              Hardhat + Chai contract tests
 backend/           Express API, Mongoose models, Ethers bridge, QR, seed, smoke
+                   baseline.js (MongoDB-only comparison), bench.js, tamper.js
 frontend/src/      React app — App.jsx, Verify.jsx, Scanner.jsx, chain.js, api.js
 ```
 

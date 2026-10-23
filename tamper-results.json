@@ -1,0 +1,70 @@
+{
+  "meta": {
+    "timestamp": "2026-10-23T14:45:50.956Z",
+    "contractAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+    "chainProductId": 57,
+    "baselineProductId": 33
+  },
+  "detection_rate": {
+    "blockchain": "4/4",
+    "centralized": "2/4"
+  },
+  "findings": [
+    {
+      "system": "blockchain",
+      "attack": "duplicate registration",
+      "outcome": "duplicate serial",
+      "detected": true,
+      "detail": "contract reverted: duplicate serial"
+    },
+    {
+      "system": "centralized",
+      "attack": "duplicate registration",
+      "outcome": "duplicate serial",
+      "detected": true,
+      "detail": "unique index rejected: duplicate serial"
+    },
+    {
+      "system": "blockchain",
+      "attack": "unauthorized transfer",
+      "outcome": "not current owner",
+      "detected": true,
+      "detail": "contract reverted: not current owner"
+    },
+    {
+      "system": "centralized",
+      "attack": "unauthorized transfer",
+      "outcome": "not current owner",
+      "detected": true,
+      "detail": "application check rejected: not current owner"
+    },
+    {
+      "system": "centralized",
+      "attack": "direct record rewrite",
+      "outcome": "VERIFIED GENUINE",
+      "detected": false,
+      "detail": "verification returns \"VERIFIED GENUINE\", owner forged to 0x00000000… — history rewritten, no trace"
+    },
+    {
+      "system": "blockchain",
+      "attack": "direct storage rewrite (dev node only)",
+      "outcome": "OWNERSHIP MISMATCH",
+      "detected": true,
+      "detail": "verification returns \"OWNERSHIP MISMATCH\" — replaying the transfer log no longer lands on currentOwner"
+    },
+    {
+      "system": "centralized",
+      "attack": "history deletion",
+      "outcome": "VERIFIED GENUINE",
+      "detected": false,
+      "detail": "verification returns \"VERIFIED GENUINE\" with 0 hops — one real transfer erased, record still internally consistent"
+    },
+    {
+      "system": "blockchain",
+      "attack": "history deletion",
+      "outcome": "log still has 1 hop(s)",
+      "detected": true,
+      "detail": "no code path can shorten the log — append-only array, 1 hop(s) intact"
+    }
+  ]
+}
