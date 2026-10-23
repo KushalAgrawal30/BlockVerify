@@ -1,9 +1,9 @@
 {
   "meta": {
-    "timestamp": "2026-10-23T14:45:50.956Z",
+    "timestamp": "2026-10-23T15:18:39.835Z",
     "contractAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
     "chainProductId": 57,
-    "baselineProductId": 33
+    "baselineProductId": 65
   },
   "detection_rate": {
     "blockchain": "4/4",
