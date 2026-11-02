@@ -159,17 +159,9 @@ this single result.
 
 ![Not registered](ss/fig-verify-notreg.png)
 
-**Figure 6 — Duplicate serial registration rejected by the contract**
-
-![Duplicate rejected](ss/fig-duplicate.png)
-
-**Figure 7 — Role-based interface: the Distributor portal**
-
-![Distributor portal](ss/fig-portal-roles.png)
-
 ### 3.3 Performance measurements
 
-**Figure 8 — Benchmark output: 30 trials per operation across both systems**
+**Figure 6 — Benchmark output: 30 trials per operation across both systems**
 
 ![Benchmark output](ss/fig-bench.png)
 
@@ -185,7 +177,7 @@ this single result.
 | Verify (direct read) | Blockchain | 15.23 | 15.78 | 18.52 | 13.28 | 31.40 |
 | Verify | Centralized | 3.20 | 3.17 | 4.09 | 1.84 | 5.01 |
 
-**Figure 9 — Median operation latency by system**
+**Figure 7 — Median operation latency by system**
 
 ![Latency chart](ss/fig-chart-latency.png)
 
@@ -201,11 +193,11 @@ this single result.
 | `transferOwnership` | 103,910 | subsequent transfers |
 | `getProduct`, `getTransferLog`, `verifyProduct` | 0 | `view` functions |
 
-**Figure 10 — Gas consumption per contract operation**
+**Figure 8 — Gas consumption per contract operation**
 
 ![Gas chart](ss/fig-chart-gas.png)
 
-**Figure 11 — Verification throughput**
+**Figure 9 — Verification throughput**
 
 ![Throughput chart](ss/fig-chart-throughput.png)
 
@@ -226,11 +218,11 @@ slots (`from`, `to`, `timestamp`), with one further slot for the array length.
 
 ### 3.5 Tamper resistance
 
-**Figure 12 — Tamper experiment: four attacks against both systems**
+**Figure 10 — Tamper experiment: four attacks against both systems**
 
 ![Tamper experiment](ss/fig-tamper.png)
 
-**Figure 13 — Tamper-resistance detection matrix**
+**Figure 11 — Tamper-resistance detection matrix**
 
 ![Detection matrix](ss/fig-chart-tamper.png)
 
